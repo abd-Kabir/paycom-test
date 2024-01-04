@@ -136,6 +136,11 @@ MEDIA_ROOT = join_path(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Rest Framework
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': []
+}
+
 # Logging
 LOGGING = {
     'version': 1,
