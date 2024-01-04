@@ -17,7 +17,9 @@ def check_perform_transaction(params) -> dict:
 
 def create_transaction(params) -> dict:
     create_time = datetime.now()
-    instance = Transaction.objects.create(create_datetime=create_time)
+    amount = params.get('amount')
+    # paycom_transaction_id = params.get('id')
+    instance = Transaction.objects.create(create_datetime=create_time, amount=amount)
     return {
         "result": {
             "create_time": create_time,
