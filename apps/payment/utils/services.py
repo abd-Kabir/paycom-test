@@ -16,7 +16,7 @@ def check_perform_transaction(params) -> dict:
 
 
 def create_transaction(params) -> dict:
-    create_time = int(int(datetime.now().timestamp() * 1000) * 1000)
+    create_time = datetime.now()
     instance = Transaction.objects.create(create_datetime=create_time)
     return {
         "result": {
