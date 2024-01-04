@@ -1,0 +1,19 @@
+# PyCharm
+.idea/
+/.idea/inspectionProfiles/profiles_settings.xml
+/.idea/.gitignore
+/.idea/discord.xml
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/paycom-test.iml
+
+# Compiled Python files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+/env
+.env
+/db.sqlite3
+/logs.log
