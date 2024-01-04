@@ -4,6 +4,7 @@ from random import randint
 from .methods import (CHECK_PERFORM_TRANSACTION, CREATE_TRANSACTION,
                       PERFORM_TRANSACTION, CANCEL_TRANSACTION,
                       CHECK_TRANSACTION)
+from ..models import Transaction
 
 
 def check_perform_transaction(params) -> dict:
@@ -15,12 +16,12 @@ def check_perform_transaction(params) -> dict:
 
 
 def create_transaction(params) -> dict:
-    transaction_id = randint(100_000, 999_999)
-    create_time = datetime.now().timestamp()
+    create_time = int(int(datetime.now().timestamp() * 1000) * 1000)
+    instance = Transaction.objects.create(create_datetime=create_time)
     return {
         "result": {
             "create_time": create_time,
-            "transaction": transaction_id,
+            "transaction": instance.payment_id,
             "state": 1
         }
     }
@@ -28,7 +29,7 @@ def create_transaction(params) -> dict:
 
 def perform_transaction(params) -> dict:
     transaction_id = randint(100_000, 999_999)
-    perform_time = datetime.now().timestamp()
+    perform_time = int(datetime.now().timestamp() * 1000)
     return {
         "result": {
             "perform_time": perform_time,
@@ -40,7 +41,7 @@ def perform_transaction(params) -> dict:
 
 def cancel_transaction(params) -> dict:
     transaction_id = randint(100_000, 999_999)
-    cancel_time = datetime.now().timestamp()
+    cancel_time = int(datetime.now().timestamp() * 1000)
     return {
         "result": {
             "cancel_time": cancel_time,
@@ -54,8 +55,8 @@ def check_transaction(params) -> dict:
     transaction_id = randint(100_000, 999_999)
     return {
         "result": {
-            "create_time": datetime.now().timestamp(),
-            "perform_time": datetime.now().timestamp(),
+            "create_time": int(datetime.now().timestamp() * 1000),
+            "perform_time": int(datetime.now().timestamp() * 1000),
             "cancel_time": 0,
             "transaction": transaction_id,
             "state": 2,

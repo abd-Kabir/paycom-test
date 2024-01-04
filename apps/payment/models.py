@@ -18,6 +18,7 @@ class Transaction(BaseModel):
     payment_id = models.IntegerField(null=True, blank=True)
     order_key = models.CharField(max_length=50, unique=True, editable=False)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
+    create_datetime = models.DateTimeField(null=True, blank=True)
     perform_datetime = models.DateTimeField(null=True, blank=True)
     cancel_datetime = models.DateTimeField(null=True, blank=True)
 
