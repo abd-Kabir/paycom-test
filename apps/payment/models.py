@@ -23,7 +23,7 @@ class Transaction(BaseModel):
     cancel_datetime = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
-        return f"{self.order_key}"
+        return f"{self.payment_id}"
 
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
         if not self.payment_id:
