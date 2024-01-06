@@ -16,7 +16,7 @@ class Transaction(BaseModel):
     )
     status = models.CharField(choices=STATUS, default='processing', max_length=55)
     payment_id = models.CharField(max_length=255, null=True, blank=True)
-    order_key = models.IntegerField(unique=True, null=True, blank=True)
+    transaction_key = models.CharField(max_length=255, null=True, blank=True)
     amount = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     create_datetime = models.DateTimeField(null=True, blank=True)
     perform_datetime = models.DateTimeField(null=True, blank=True)
