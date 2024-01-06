@@ -63,9 +63,9 @@ def check_transaction(params) -> dict:
     instance = Transaction.objects.get(transaction_key=transaction_key)
     return {
         "result": {
-            "create_time": instance.create_datetime,
-            "perform_time": instance.perform_datetime,
-            "cancel_time": instance.cancel_datetime,
+            "create_time": instance.create_datetime.timestamp() * 1000,
+            "perform_time": instance.perform_datetime.timestamp() * 1000,
+            "cancel_time": instance.cancel_datetime.timestamp() * 1000,
             "transaction": instance.transaction_key,
             "state": 2,
             "reason": None
