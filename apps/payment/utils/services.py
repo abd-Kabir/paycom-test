@@ -19,9 +19,9 @@ def create_transaction(params) -> dict:
     create_datetime = datetime.now()
     create_time = int(create_datetime.timestamp() * 1000)
     amount = params.get('amount')
-    order_key = params.get('id')
+    transaction_key = params.get('id')
     instance = Transaction.objects.create(create_datetime=create_datetime,
-                                          order_key=order_key,
+                                          transaction_key=transaction_key,
                                           amount=amount)
     return {
         "result": {
