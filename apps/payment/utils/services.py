@@ -17,15 +17,17 @@ def check_perform_transaction(params) -> dict:
 
 def create_transaction(params) -> dict:
     create_datetime = datetime.now()
-    create_time = int(create_datetime.timestamp() * 1000)
     amount = params.get('amount')
     transaction_key = params.get('id')
-    instance = Transaction.objects.create(create_datetime=create_datetime,
-                                          transaction_key=transaction_key,
-                                          amount=amount)
+    if transaction_key in Transaction.objects.values_list('transaction_key', flat=True):
+        instance = Transaction.objects.filter(transaction_key=transaction_key).first()
+    else:
+        instance = Transaction.objects.create(create_datetime=create_datetime,
+                                              transaction_key=transaction_key,
+                                              amount=amount)
     return {
         "result": {
-            "create_time": create_time,
+            "create_time": instance.create_datetime.timestamp() * 1000,
             "transaction": instance.payment_id,
             "state": 1
         }
