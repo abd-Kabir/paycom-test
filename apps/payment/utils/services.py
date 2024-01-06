@@ -73,9 +73,9 @@ def check_transaction(params) -> dict:
 
     return {
         "result": {
-            "create_time": create_time,
-            "perform_time": perform_time,
-            "cancel_time": cancel_time,
+            "create_time": create_time or 0,
+            "perform_time": perform_time or 0,
+            "cancel_time": cancel_time or 0,
             "transaction": instance.payment_id,
             "state": 2,
             "reason": None
