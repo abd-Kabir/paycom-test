@@ -61,11 +61,21 @@ def cancel_transaction(params) -> dict:
 def check_transaction(params) -> dict:
     transaction_key = params.get('id')
     instance = Transaction.objects.get(transaction_key=transaction_key)
+    create_time = instance.create_datetime
+    if create_time:
+        create_time = create_time.timestamp() * 1000
+    perform_time = instance.perform_datetime
+    if perform_time:
+        perform_time = perform_time.timestamp() * 1000
+    cancel_time = instance.cancel_datetime
+    if cancel_time:
+        cancel_time = cancel_time.timestamp() * 1000
+
     return {
         "result": {
-            "create_time": instance.create_datetime.timestamp() * 1000,
-            "perform_time": instance.perform_datetime.timestamp() * 1000,
-            "cancel_time": instance.cancel_datetime.timestamp() * 1000,
+            "create_time": create_time,
+            "perform_time": perform_time,
+            "cancel_time": cancel_time,
             "transaction": instance.transaction_key,
             "state": 2,
             "reason": None
