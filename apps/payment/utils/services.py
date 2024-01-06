@@ -24,12 +24,13 @@ def create_transaction(params) -> dict:
     else:
         instance = Transaction.objects.create(create_datetime=create_datetime,
                                               transaction_key=transaction_key,
-                                              amount=amount)
+                                              amount=amount,
+                                              state=1)
     return {
         "result": {
             "create_time": instance.create_datetime.timestamp() * 1000,
             "transaction": instance.payment_id,
-            "state": 1
+            "state": instance.state
         }
     }
 
@@ -77,8 +78,8 @@ def check_transaction(params) -> dict:
             "perform_time": perform_time or 0,
             "cancel_time": cancel_time or 0,
             "transaction": instance.payment_id,
-            "state": 2,
-            "reason": None
+            "state": instance.state,
+            "reason": instance.reason
         }
     }
 
