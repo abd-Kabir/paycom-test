@@ -77,7 +77,7 @@ def perform_transaction(params) -> dict:
     return {
         "result": {
             "perform_time": instance.perform_datetime.timestamp() * 1000,
-            "transaction": transaction_key,
+            "transaction": instance.payment_id,
             "state": instance.state
         }
     }
