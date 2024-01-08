@@ -70,9 +70,10 @@ def perform_transaction(params) -> dict:
             }
         }
     instance = instance.first()
-    instance.perform_datetime = datetime.now()
-    instance.state = 2
-    instance.save()
+    if instance.state != 2:
+        instance.perform_datetime = datetime.now()
+        instance.state = 2
+        instance.save()
     return {
         "result": {
             "perform_time": instance.perform_datetime.timestamp() * 1000,
