@@ -1,3 +1,4 @@
+import logging
 from datetime import datetime
 from random import randint
 
@@ -5,6 +6,8 @@ from .methods import (CHECK_PERFORM_TRANSACTION, CREATE_TRANSACTION,
                       PERFORM_TRANSACTION, CANCEL_TRANSACTION,
                       CHECK_TRANSACTION)
 from ..models import Transaction
+
+logger = logging.getLogger()
 
 
 def check_perform_transaction(params) -> dict:
@@ -79,7 +82,18 @@ def cancel_transaction(params) -> dict:
 
 def check_transaction(params) -> dict:
     transaction_key = params.get('id')
-    instance = Transaction.objects.get(transaction_key=transaction_key)
+    try:
+        instance = Transaction.objects.get(transaction_key=transaction_key)
+    except Exception as exc:
+        logger.debug(f"Error occurred: {exc.args}")
+        return {
+            "code": -31003,
+            "message": {
+                "uz": 'Buyurtma topilmadi',
+                "ru": 'Транзакция не найдена',
+                "en": 'Transaction not found'
+            }
+        }
     create_time = instance.create_datetime
     if create_time:
         create_time = create_time.timestamp() * 1000

@@ -11,7 +11,7 @@ logger = logging.getLogger()
 
 class PaycomMerchantAPI(APIView):
     def post(self, request, *args, **kwargs):
-        logger.debug(f"Data: {request.data}; Params: {request.query_params}")
+        # logger.debug(f"Data: {request.data}; Params: {request.query_params}")
 
         serializer = PaymeMerchantAPISerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
