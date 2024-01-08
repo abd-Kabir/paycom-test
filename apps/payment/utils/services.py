@@ -22,10 +22,26 @@ def create_transaction(params) -> dict:
     if transaction_key in Transaction.objects.values_list('transaction_key', flat=True):
         instance = Transaction.objects.filter(transaction_key=transaction_key).first()
     else:
+        account_id = params.get('account').get('user')
+        package_id = params.get('account').get('Tarif')
+        if Transaction.objects.filter(package_id=package_id,
+                                      user_id=account_id,
+                                      status='processing').exists():
+            return {
+                "error": {
+                    "code": -31099,
+                    "message": {
+                        "uz": "Buyurtma amalga oshirilmoqda",
+                        "ru": "Заказ в процессе обработки",
+                        "en": "Order payment in process"
+                    }
+                }
+            }
         instance = Transaction.objects.create(create_datetime=create_datetime,
                                               transaction_key=transaction_key,
                                               amount=amount,
-                                              state=1)
+                                              state=1,
+                                              status='processing')
     return {
         "result": {
             "create_time": instance.create_datetime.timestamp() * 1000,

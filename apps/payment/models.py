@@ -1,6 +1,16 @@
 import uuid
+
+from django.contrib.auth.models import User
 from django.db import models
 from config.models import BaseModel
+
+
+class Package(BaseModel):
+    name = models.CharField(max_length=55)
+    amount = models.PositiveIntegerField()
+
+    class Meta:
+        db_table = 'Package'
 
 
 class Transaction(BaseModel):
@@ -23,6 +33,9 @@ class Transaction(BaseModel):
     perform_datetime = models.DateTimeField(null=True, blank=True)
     cancel_datetime = models.DateTimeField(null=True, blank=True)
     reason = models.IntegerField(blank=True, null=True)
+
+    package = models.ForeignKey(Package, on_delete=models.SET_NULL, null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return f"{self.payment_id}"
