@@ -5,6 +5,7 @@ from random import randint
 from .methods import (CHECK_PERFORM_TRANSACTION, CREATE_TRANSACTION,
                       PERFORM_TRANSACTION, CANCEL_TRANSACTION,
                       CHECK_TRANSACTION)
+from .tools import payment_errors, PROCESSING, NOT_FOUND, BLOCKED
 from ..models import Transaction
 
 logger = logging.getLogger()
