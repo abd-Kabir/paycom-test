@@ -41,7 +41,9 @@ def create_transaction(params) -> dict:
                                               transaction_key=transaction_key,
                                               amount=amount,
                                               state=1,
-                                              status='processing')
+                                              status='processing',
+                                              package_id=package_id,
+                                              user_id=account_id)
     return {
         "result": {
             "create_time": instance.create_datetime.timestamp() * 1000,
